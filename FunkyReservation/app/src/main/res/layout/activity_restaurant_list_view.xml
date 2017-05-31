@@ -1,0 +1,482 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.DrawerLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/listViewDrawer"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/listViewId"
+        tools:context="funky.pom16.funkyreservation.RestaurantListView"
+        android:background="@color/background_color"
+        android:focusableInTouchMode="false">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/relativeLayout">
+
+
+            <Button
+                style="?android:attr/buttonStyleSmall"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/homeButton"
+                android:background="@drawable/home"
+                android:textColor="@color/button_text_color"
+                android:onClick="onHomeClicked"
+                android:layout_centerVertical="true"
+                android:layout_alignParentStart="true"/>
+
+            <SearchView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/listSearchView"
+                android:onClick="onSearchViewClick"
+                android:queryHint="Type city/restaurant name"
+                android:layout_centerHorizontal="true"
+                android:layout_toEndOf="@+id/homeButton" />
+        </RelativeLayout>
+
+        <ListView
+            android:id="@+id/list_view_list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignParentStart="true"
+            tools:listitem="@layout/single_restaurant_list_view"
+            android:background="#ffffff"
+            android:layout_toStartOf="@+id/listViewBottomLayout"
+            android:layout_above="@id/listViewBottomLayout"
+            android:layout_alignEnd="@id/listViewBottomLayout"
+            android:layout_below="@+id/relativeLayout">
+            android:layout_below="@+id/listViewSearch"
+            android:layout_above="@+id/result_view_map"
+            android:divider="@drawable/list_divider" android:dividerHeight="1px"
+        </ListView>
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_horizontal"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentEnd="true"
+            android:id="@+id/listViewBottomLayout">
+            <Button
+                android:layout_height="wrap_content"
+                android:text="@string/filter_button"
+                android:id="@+id/filter_results"
+                android:background="@color/button_color"
+                android:textColor="@color/button_text_color"
+                android:paddingLeft="@dimen/activity_horizontal_margin"
+                android:paddingRight="@dimen/activity_horizontal_margin"
+                android:height="@dimen/button_height"
+                android:layout_width="fill_parent"
+                android:layout_weight="1"
+                android:drawableLeft="@android:drawable/ic_menu_manage"
+                android:onClick="showListFilterMenu" />
+            <View android:layout_height="fill_parent"
+                android:layout_width="4px"
+                android:background="@color/button_text_color" />
+            <Button
+                android:layout_height="wrap_content"
+                android:text="@string/map_view"
+                android:id="@+id/result_view_map"
+                android:background="@color/button_color"
+                android:textColor="@color/button_text_color"
+                android:paddingLeft="@dimen/activity_horizontal_margin"
+                android:paddingRight="@dimen/activity_horizontal_margin"
+                android:height="@dimen/button_height"
+                android:onClick="switchToMapView"
+                android:layout_width="fill_parent"
+                android:layout_weight="1"
+                android:drawableLeft="@android:drawable/ic_dialog_map"
+                />
+        </LinearLayout>
+
+    </RelativeLayout>
+    <RelativeLayout
+        android:layout_width="300dp"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_gravity="start"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:background="@color/background_color">
+
+        <TextView
+            android:id="@+id/select_list_food"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:text="@string/select_food"
+            android:maxLines="1"
+            android:textColor="@color/button_text_color"
+            android:textIsSelectable="false" />
+        <Spinner
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/food_list_spinner"
+            android:layout_below="@id/select_list_food"
+            android:spinnerMode ="dropdown" />
+        <View android:layout_width="fill_parent"
+            android:layout_height="4px"
+            android:layout_below="@id/food_list_spinner"
+            android:id="@+id/food_list_split"
+            android:background="@color/button_text_color" />
+
+        <TextView
+            android:id="@+id/select_list_price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:text="@string/select_price"
+            android:layout_below="@id/food_list_split"
+            android:maxLines="1"
+            android:textColor="@color/button_text_color"
+            android:textIsSelectable="false" />
+        <TextView
+            android:id="@+id/selected_price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="15sp"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@+id/select_list_price"
+            android:maxLines="1"
+            android:textColor="@color/button_text_color"
+            android:textIsSelectable="false"
+            android:paddingTop="10dp"
+            android:text="@string/min_price"/>
+        <SeekBar
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/price_list_seekBar"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@id/selected_price"
+            android:max="100"/>
+        <TextView
+            android:id="@+id/min_list_price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/selected_price"
+            android:layout_toLeftOf="@+id/price_list_seekBar"
+            android:text="@string/min_price" />
+        <TextView
+            android:id="@+id/max_list_price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/selected_price"
+            android:layout_toRightOf="@+id/price_list_seekBar"
+            android:text="@string/max_price" />
+        <View android:layout_width="fill_parent"
+            android:layout_height="4px"
+            android:id="@+id/price_list_split"
+            android:layout_below="@+id/price_list_seekBar"
+            android:background="@color/button_text_color" />
+
+        <TextView
+            android:id="@+id/select_list_ratings"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:layout_below="@id/price_list_split"
+            android:text="@string/select_ratings"
+            android:maxLines="1"
+            android:textColor="@color/button_text_color"
+            android:textIsSelectable="false" />
+        <TextView
+            android:id="@+id/selected_rating"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="15sp"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@+id/select_list_ratings"
+            android:maxLines="1"
+            android:textColor="@color/button_text_color"
+            android:textIsSelectable="false"
+            android:paddingTop="10dp"
+            android:text="@string/min_rating"/>
+        <SeekBar
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/rating_seekBar"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@id/selected_rating"
+            android:max="5"/>
+        <TextView
+            android:id="@+id/min_list_rating"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/selected_rating"
+            android:layout_toLeftOf="@+id/rating_seekBar"
+            android:text="@string/min_rating" />
+        <TextView
+            android:id="@+id/max_list_rating"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/selected_rating"
+            android:layout_toRightOf="@+id/rating_seekBar"
+            android:text="@string/max_rating" />
+        <View android:layout_width="fill_parent"
+            android:layout_height="4px"
+            android:id="@+id/rating_list_split"
+            android:layout_below="@id/rating_seekBar"
+            android:background="@color/button_text_color" />
+
+        <TextView
+            android:id="@+id/select_list_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:text="@string/select_name"
+            android:maxLines="1"
+            android:layout_below="@id/rating_list_split"
+            android:textColor="@color/button_text_color"
+            android:textIsSelectable="false" />
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/name_list_spinner"
+            android:layout_below="@id/select_list_name"
+            android:spinnerMode ="dropdown" />
+        <View android:layout_width="fill_parent"
+            android:layout_height="4px"
+            android:id="@+id/name_list_split"
+            android:layout_below="@id/name_list_spinner"
+            android:background="@color/button_text_color" />
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_horizontal"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentEnd="true"
+            >
+            <Button
+                android:layout_height="wrap_content"
+                android:text="@string/ok"
+                android:id="@+id/filter_ok"
+                android:background="@color/button_color"
+                android:textColor="@color/button_text_color"
+                android:paddingLeft="@dimen/activity_horizontal_margin"
+                android:paddingRight="@dimen/activity_horizontal_margin"
+                android:height="@dimen/button_height"
+                android:layout_width="fill_parent"
+                android:layout_weight="1"
+                android:drawableLeft="@android:drawable/ic_menu_manage"
+                android:onClick="filterListResults" />
+            <View android:layout_height="fill_parent"
+                android:layout_width="4px"
+                android:background="@color/button_text_color" />
+            <Button
+                android:layout_height="wrap_content"
+                android:text="@string/cancel"
+                android:id="@+id/filter_cancel"
+                android:background="@color/button_color"
+                android:textColor="@color/button_text_color"
+                android:paddingLeft="@dimen/activity_horizontal_margin"
+                android:paddingRight="@dimen/activity_horizontal_margin"
+                android:height="@dimen/button_height"
+                android:onClick="hideListFilterMenu"
+                android:layout_width="fill_parent"
+                android:layout_weight="1"
+                android:drawableLeft="@android:drawable/ic_menu_close_clear_cancel"
+                />
+        </LinearLayout>
+    </RelativeLayout>
+    <RelativeLayout
+        android:layout_width="350dp"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_gravity="right"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:background="@color/background_color">
+
+        <TextView
+            android:id="@+id/restaurant_details_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:text="Restaurant 1"
+            android:maxLines="1"
+            android:textColor="@color/button_text_color"
+            android:textIsSelectable="false" />
+        <View android:layout_width="fill_parent"
+            android:layout_height="4px"
+            android:id="@+id/restaurant_details_name_split"
+            android:layout_below="@id/restaurant_details_name"
+            android:background="@color/button_text_color" />
+
+        <RelativeLayout
+            android:id="@+id/restaurant_details_address_holder"
+            android:layout_below="@id/restaurant_details_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:id="@+id/listAddressMarker"
+                android:layout_centerVertical="true"
+                android:gravity="center"
+                android:src="@android:drawable/ic_dialog_map"/>
+            <TextView
+                android:id="@+id/restaurant_details_address"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"
+                android:text="Restaurant 1"
+                android:layout_marginLeft="5dp"
+                android:layout_toRightOf="@id/listAddressMarker"
+                android:maxLines="1"
+                android:textColor="@color/button_text_color"
+                android:textIsSelectable="false" />
+        </RelativeLayout>
+
+
+        <RelativeLayout
+            android:id="@+id/restaurant_details_category_holder"
+            android:layout_below="@id/restaurant_details_address_holder"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/category_wording"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"
+                android:text="Category: "
+                android:maxLines="1"
+                android:textColor="@color/button_text_color"
+                android:textIsSelectable="false" />
+            <TextView
+                android:id="@+id/restaurant_details_category"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"
+                android:layout_marginLeft="5dp"
+                android:layout_toRightOf="@id/category_wording"
+                android:maxLines="1"
+                android:textColor="@color/button_text_color"
+                android:textIsSelectable="false" />
+        </RelativeLayout>
+
+        <View android:layout_width="fill_parent"
+            android:layout_height="4px"
+            android:id="@+id/restaurant_details_category_split"
+            android:layout_below="@id/restaurant_details_category_holder"
+            android:background="@color/button_text_color" />
+
+        <ImageView
+            android:id="@+id/restaurant_details_image"
+            android:layout_width="match_parent"
+            android:layout_height="315dp"
+            android:layout_below="@id/restaurant_details_category_split"
+            android:background="#cfcfcf" />
+
+        <RelativeLayout
+            android:id="@+id/restaurant_details_website_holder"
+            android:layout_below="@id/restaurant_details_image"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:id="@+id/restaurant_details_website"
+                android:layout_centerVertical="true"
+                android:gravity="center"
+                android:layout_margin="5dp"
+                android:src="@android:drawable/ic_dialog_info"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"
+                android:text="Website"
+                android:layout_margin="5dp"
+                android:layout_toRightOf="@id/restaurant_details_website"
+                android:maxLines="1"
+                android:textColor="@color/button_text_color"
+                android:textIsSelectable="false" />
+        </RelativeLayout>
+
+
+        <View android:layout_width="fill_parent"
+            android:layout_height="4px"
+            android:id="@+id/restaurant_details_image_split"
+            android:layout_below="@id/restaurant_details_website_holder"
+            android:background="@color/button_text_color" />
+
+        <RelativeLayout
+            android:id="@+id/restaurant_details_rating_holder"
+            android:layout_below="@id/restaurant_details_image_split"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/rating_wording"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"
+                android:text="Rating: "
+                android:maxLines="1"
+                android:textColor="@color/button_text_color"
+                android:textIsSelectable="false" />
+            <TextView
+                android:id="@+id/restaurant_details_rating"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"
+                android:layout_marginLeft="5dp"
+                android:layout_below="@id/rating_wording"
+                android:maxLines="1"
+                android:textColor="@color/button_text_color"
+                android:textIsSelectable="false" />
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_horizontal"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentEnd="true">
+
+            <Button
+                android:layout_height="wrap_content"
+                android:text="@string/reserve"
+                android:id="@+id/restaurant_details"
+                android:background="@color/button_color"
+                android:textColor="@color/button_text_color"
+                android:paddingLeft="@dimen/activity_horizontal_margin"
+                android:paddingRight="@dimen/activity_horizontal_margin"
+                android:height="@dimen/button_height"
+                android:layout_width="fill_parent"
+                android:layout_weight="1"
+                android:drawableLeft="@android:drawable/ic_menu_manage"
+                android:onClick="reserveTable" />
+
+            <View android:layout_height="fill_parent"
+                android:layout_width="4px"
+                android:background="@color/button_text_color" />
+
+            <Button
+                android:layout_height="wrap_content"
+                android:text="@string/back"
+                android:id="@+id/restaurant_details_cancel"
+                android:background="@color/button_color"
+                android:textColor="@color/button_text_color"
+                android:paddingLeft="@dimen/activity_horizontal_margin"
+                android:paddingRight="@dimen/activity_horizontal_margin"
+                android:height="@dimen/button_height"
+                android:onClick="hideRestaurantDetails"
+                android:layout_width="fill_parent"
+                android:layout_weight="1"
+                android:drawableLeft="@android:drawable/ic_menu_close_clear_cancel"
+                />
+        </LinearLayout>
+    </RelativeLayout>
+</android.support.v4.widget.DrawerLayout>

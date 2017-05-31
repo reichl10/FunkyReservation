@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/tableViewId"
+    tools:context="funky.pom16.funkyreservation.TableView"
+    android:background="@color/background_color" >
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:id="@+id/relativeLayout3">
+
+        <Button
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/homeButton"
+            android:background="@drawable/home"
+            android:textColor="@color/button_text_color"
+            android:onClick="onHomeClicked"
+            android:layout_centerVertical="true"
+            android:layout_alignParentStart="true"/>
+
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/viewTableTtitle"
+            android:layout_alignParentTop="true"
+            android:text="restaurant"
+            android:textAlignment="center"
+            android:paddingTop="@dimen/activity_vertical_margin"
+            android:paddingBottom="@dimen/activity_vertical_margin"
+            android:textIsSelectable="false"
+            android:textSize="26dp"
+            android:layout_toEndOf="@+id/homeButton" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/relativeLayout3"
+        android:layout_above="@+id/linearLayout3">
+
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/viewTablesDate"
+            android:text="test"
+            android:textSize="23dp"
+            android:onClick="setDate"
+            android:textAlignment="center"
+            android:background="#ffffff"
+            android:paddingTop="@dimen/activity_vertical_margin"
+            android:paddingBottom="@dimen/activity_vertical_margin"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentStart="true" />
+
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/viewTablesTime"
+            android:text="test2"
+            android:textSize="23dp"
+            android:onClick="setDate"
+            android:textAlignment="center"
+            android:background="#ffffff"
+            android:paddingTop="@dimen/activity_vertical_margin"
+            android:paddingBottom="@dimen/activity_vertical_margin"
+            android:layout_below="@+id/viewTablesDate"
+            android:layout_alignParentStart="true"
+            android:layout_marginTop="10dp" />
+
+        <Button
+            android:layout_marginTop="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/check_avail"
+            android:id="@+id/checkAvailability"
+            android:background="@color/button_color"
+            android:textColor="@color/button_text_color"
+            android:paddingLeft="@dimen/activity_horizontal_margin"
+            android:paddingRight="@dimen/activity_horizontal_margin"
+            android:height="@dimen/button_height"
+            android:onClick="checkAvailability"
+            android:layout_below="@+id/viewTablesTime"
+            android:layout_centerHorizontal="true" />
+
+        <ListView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/tablesList"
+            android:dividerHeight="20px"
+            tools:listitem="@layout/single_table_layout"
+            android:layout_below="@+id/checkAvailability"
+            android:layout_marginTop="10sp"
+            android:choiceMode="singleChoice"
+            android:background="@color/list_table_color_default"
+            android:listSelector="#bbbbbb" />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_horizontal"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:id="@+id/linearLayout3">
+
+        <Button
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/reserve"
+            android:background="@color/button_color"
+            android:textColor="@color/button_text_color"
+            android:paddingLeft="@dimen/activity_horizontal_margin"
+            android:paddingRight="@dimen/activity_horizontal_margin"
+            android:height="@dimen/button_height"
+            android:id="@+id/reserveTable"
+            android:onClick="onReserveClick"
+            android:layout_weight="1"
+            android:drawableLeft="@android:drawable/ic_menu_manage"/>
+
+        <View android:layout_height="fill_parent"
+            android:layout_width="4px"
+            android:background="@color/button_text_color"/>
+
+        <Button
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/cancel"
+            android:background="@color/button_color"
+            android:textColor="@color/button_text_color"
+            android:paddingLeft="@dimen/activity_horizontal_margin"
+            android:paddingRight="@dimen/activity_horizontal_margin"
+            android:height="@dimen/button_height"
+            android:id="@+id/cancelReserveTable"
+            android:layout_weight="1"
+            android:onClick="onCancelClick"
+            android:drawableLeft="@android:drawable/ic_menu_close_clear_cancel"/>
+    </LinearLayout>
+
+</RelativeLayout>

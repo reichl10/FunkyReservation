@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="button_color">#006699</color>
+    <color name="background_color">#a2c3c8</color>
+    <color name="button_text_color">#ffffff</color>
+    <color name="list_color">#ffffff</color>
+    <color name="list_name_color">#982020</color>
+
+    <color name="list_table_color">#986e20</color>
+    <color name="list_table_color_default">#ffffff</color>
+
+    <color name="black_overlay">#66000000</color>
+
+    <color name="gray_out">#A6A6A6A6</color>
+</resources>
